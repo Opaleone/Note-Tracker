@@ -35,23 +35,23 @@ notes.post('/', (req, res) => {
   }
 })
 
-notes.delete('/:id', (req, res) => {
-  console.info(`${req.method} request received`)
+// notes.delete('/:id', (req, res) => {
+//   console.info(`${req.method} request received`)
 
-  const userId = req.params.id;
+//   const userId = req.params.id;
   
-  readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
+//   readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 
-  if (data.id === userId) {
-    
-  }
+//   if (data.id === userId) {
 
-  const response = {
-    status: 'success',
-    body: newNote,
-  }
+//   }
 
-  res.json(response)
-});
+//   const response = {
+//     status: 'success',
+//     body: newNote,
+//   }
+
+//   res.json(response)
+// });
 
 module.exports = notes;
