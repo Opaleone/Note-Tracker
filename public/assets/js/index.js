@@ -33,11 +33,6 @@ const getNotes = (notes) =>
     },
     body: JSON.stringify(notes),
   })
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => {
-      console.error('Error:', error);
-    });
 
 const saveNote = (note) =>
   fetch('/api/notes', {
@@ -47,11 +42,6 @@ const saveNote = (note) =>
     },
     body: JSON.stringify(note),
   })
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => {
-      console.error('Error:', error);
-    });
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -60,11 +50,6 @@ const deleteNote = (id) =>
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => {
-      console.error('Error:', error);
-    });
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);

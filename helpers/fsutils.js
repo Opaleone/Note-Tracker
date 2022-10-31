@@ -29,8 +29,6 @@ const readAndAppend = (content, file) => {
       writeToFile(file, parsedData);
     }
   });
-
-
 };
 
 module.exports = { readFromFile, writeToFile, readAndAppend };

@@ -1,12 +1,14 @@
 const notes = require('express').Router()
-const { readFromFile, readAndAppend } = require('../helpers/fsutils')
+const fs = require('fs');
+// const { response } = require('.');
+let db = require('../db/notes.json')
 
 
 
 notes.get('/', (req, res) => {
   console.info(`${req.method} request received`);
 
-  readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
+  res.json(db)
 });
 
 notes.post('/', (req, res) => {
@@ -24,7 +26,11 @@ notes.post('/', (req, res) => {
     newNote.id = Math.floor(Math.random() * 10000)
     console.log(newNote);
 
-    readAndAppend(newNote, './db/notes.json')
+    db.push(newNote);
+
+    fs.writeFile('./db/notes.json', JSON.stringify(db), (err) => {
+      err ? console.error(err) : console.log('Success!');
+    })
 
     const response = {
       status: 'success',
@@ -35,23 +41,21 @@ notes.post('/', (req, res) => {
   }
 })
 
-// notes.delete('/:id', (req, res) => {
-//   console.info(`${req.method} request received`)
+notes.delete('/:id', (req, res) => {
+  console.info(`${req.method} request received`)
 
-//   const userId = req.params.id;
-  
-//   readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
+  db = db.filter(note => note.id != req.params.id)
 
-//   if (data.id === userId) {
+  fs.writeFile('./db/notes.json', JSON.stringify(db), (err) => {
+    err ? console.error(err) : console.log('Success!');
+  })
 
-//   }
+  const response = {
+    status: 'success',
+    body: newNote,
+  }
 
-//   const response = {
-//     status: 'success',
-//     body: newNote,
-//   }
-
-//   res.json(response)
-// });
+  res.json(response)
+});
 
 module.exports = notes;
